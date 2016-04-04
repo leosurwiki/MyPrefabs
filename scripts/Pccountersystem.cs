@@ -32,8 +32,6 @@ public class Pccountersystem : MonoBehaviour
             }
             foreach (PcPartileFilter filter in filters)
             {
-                if (filter.ParticleNumber!=0)
-                    Debug.Log(filter.ParticleNumber);
                 filter.execute();
             }
         }
