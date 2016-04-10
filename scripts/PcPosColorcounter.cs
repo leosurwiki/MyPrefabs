@@ -30,8 +30,10 @@ public class PcPosColorcounter : PcPartileFilter
         if (p.Position.x > areaLeftTopX && p.Position.x < areaRightBottomX && p.Position.y > areaRightBottomY && p.Position.y < areaLeftTopY)
         {
             float diffence = System.Math.Abs(_Color.a - p._Color.a) + System.Math.Abs(_Color.g - p._Color.g) + System.Math.Abs(_Color.b - p._Color.b);
-            if (diffence<colorTolerance)
+            if (diffence < colorTolerance)
                 ParticleNumber++;
+            else
+                Debug.Log(diffence);
         }
         return ParticleNumber != 0;
     }
