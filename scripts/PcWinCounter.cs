@@ -5,6 +5,7 @@ public class PcWinCounter : PcPartileFilter{
     public LPFixtureBox box;
     public Texture2D celeste;
     public Texture2D blue;
+    public int winCount = 15;
     //override
     float areaLeftTopX;
     float areaLeftTopY;
@@ -24,7 +25,7 @@ public class PcWinCounter : PcPartileFilter{
     }
     override public void  execute()
     {
-        if (ParticleNumber > 15)
+        if (ParticleNumber > winCount)
         {
             int nextscene = Application.loadedLevel + 1;
             if (nextscene > Application.levelCount - 1) nextscene = 0;
@@ -41,6 +42,6 @@ public class PcWinCounter : PcPartileFilter{
     void OnGUI()
     {
         GUI.DrawTexture(new Rect(0, 0, Screen.width / 20, Screen.height / 2), blue);
-        GUI.DrawTexture(new Rect(-Screen.width / 100, -Screen.height / 400, Screen.width / 20 + Screen.width / 50, Mathf.Min(Screen.height / 2, Screen.height / 2f / 15f * ParticleNumber)), celeste);
+        GUI.DrawTexture(new Rect(-Screen.width / 100, -Screen.height / 400, Screen.width / 20 + Screen.width / 50, Mathf.Min(Screen.height / 2, Screen.height / 2f / (float)winCount * ParticleNumber)), celeste);
     }
 }
