@@ -19,17 +19,21 @@ public class PcPosColorcounter : PcPartileFilter
     void Start()
     {
         _Color = gem.color;
-        areaLeftTopX = box.transform.position.x + box.Offset.x;
-        areaRightBottomX = box.transform.position.x + box.Size.x  + box.Offset.x;
-        areaRightBottomY = box.transform.position.y + box.Offset.y;
-        areaLeftTopY = box.transform.position.y + box.Size.y + box.Offset.y;
-        ParticleNumber = 0;
+        areaLeftTopX = box.transform.position.x - box.Size.x / 2 * box.transform.lossyScale.x + box.Offset.x * box.transform.lossyScale.x;
+        areaRightBottomX = box.transform.position.x + box.Size.x / 2 * box.transform.lossyScale.x + box.Offset.x * box.transform.lossyScale.x;
+        areaRightBottomY = box.transform.position.y - box.Size.y / 2 * box.transform.lossyScale.y + box.Offset.y * box.transform.lossyScale.y;
+        areaLeftTopY = box.transform.position.y + box.Size.y / 2 * box.transform.lossyScale.y + box.Offset.y * box.transform.lossyScale.y;
+           ParticleNumber = 0;
     }
     public override bool matchFilter(LPParticle p)
     {
         if (p.Position.x > areaLeftTopX && p.Position.x < areaRightBottomX && p.Position.y > areaRightBottomY && p.Position.y < areaLeftTopY)
         {
-            float diffence = System.Math.Abs(_Color.a - p._Color.a) + System.Math.Abs(_Color.g - p._Color.g) + System.Math.Abs(_Color.b - p._Color.b);
+            float _max = System.Math.Max(System.Math.Max(_Color.r, _Color.g), _Color.b);
+            float max = System.Math.Max(System.Math.Max(p._Color.r, p._Color.g), p._Color.b);
+            float diffence = System.Math.Abs(_Color.r * 255 / _max - p._Color.r * 255 / max)
+                           + System.Math.Abs(_Color.g * 255 / _max - p._Color.g * 255 / max)
+                           + System.Math.Abs(_Color.b * 255 / _max - p._Color.b * 255 / max);
             if (diffence < colorTolerance)
                 ParticleNumber++;
             else
@@ -37,7 +41,6 @@ public class PcPosColorcounter : PcPartileFilter
         }
         return ParticleNumber != 0;
     }
-
     public override void initialise2()
     {
         this.ParticleNumber = 0;
