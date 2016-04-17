@@ -19,21 +19,21 @@ public class PcPosColorcounter : PcPartileFilter
     void Start()
     {
         _Color = gem.color;
-        areaLeftTopX = box.transform.position.x - box.Size.x / 2 + box.Offset.x;
-        areaRightBottomX = box.transform.position.x + box.Size.x / 2 + box.Offset.x;
-        areaRightBottomY = box.transform.position.y - box.Size.y / 2 + box.Offset.y;
-        areaLeftTopY = box.transform.position.y + box.Size.y / 2 + box.Offset.y;
+        areaLeftTopX = box.transform.position.x + box.Offset.x;
+        areaRightBottomX = box.transform.position.x + box.Size.x  + box.Offset.x;
+        areaRightBottomY = box.transform.position.y + box.Offset.y;
+        areaLeftTopY = box.transform.position.y + box.Size.y + box.Offset.y;
         ParticleNumber = 0;
     }
     public override bool matchFilter(LPParticle p)
     {
         if (p.Position.x > areaLeftTopX && p.Position.x < areaRightBottomX && p.Position.y > areaRightBottomY && p.Position.y < areaLeftTopY)
         {
-            float diffence = System.Math.Abs(_Color.r - p._Color.r) + System.Math.Abs(_Color.g - p._Color.g) + System.Math.Abs(_Color.b - p._Color.b);
+            float diffence = System.Math.Abs(_Color.a - p._Color.a) + System.Math.Abs(_Color.g - p._Color.g) + System.Math.Abs(_Color.b - p._Color.b);
             if (diffence < colorTolerance)
                 ParticleNumber++;
             else
-                Debug.Log(diffence );
+                Debug.Log(diffence);
         }
         return ParticleNumber != 0;
     }
