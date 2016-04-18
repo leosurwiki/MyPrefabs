@@ -13,10 +13,10 @@ public class PcWinCounter : PcPartileFilter{
     float areaRightBottomY;
     void Start()
     {
-        areaLeftTopX = box.transform.position.x - box.Size.x/2 + box.Offset.x-0.01f;
-        areaRightBottomX = box.transform.position.x + box.Size.x / 2 + box.Offset.x + 0.01f;
-        areaRightBottomY = box.transform.position.y - box.Size.y / 2 + box.Offset.y - 0.01f;
-        areaLeftTopY = box.transform.position.y + box.Size.y / 2 + box.Offset.y + 0.01f;
+        areaLeftTopX = box.transform.position.x - box.Size.x / 2 * box.transform.lossyScale.x + box.Offset.x * box.transform.lossyScale.x;
+        areaRightBottomX = box.transform.position.x + box.Size.x / 2 * box.transform.lossyScale.x + box.Offset.x * box.transform.lossyScale.x;
+        areaRightBottomY = box.transform.position.y - box.Size.y / 2 * box.transform.lossyScale.y + box.Offset.y * box.transform.lossyScale.y;
+        areaLeftTopY = box.transform.position.y + box.Size.y / 2 * box.transform.lossyScale.y + box.Offset.y * box.transform.lossyScale.y;
         ParticleNumber = 0;
     }
     override public void initialise2()
