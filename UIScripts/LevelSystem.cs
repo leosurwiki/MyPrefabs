@@ -21,7 +21,7 @@ public class LevelSystem : MonoBehaviour {
 		string filePath;
 
 		#if UNITY_ANDROID
-		filePath = Application.persistentDataPath + "/Resources/levels.xml";
+		filePath = "jar:file://" + Application.dataPath + "!/assets/levels.xml";;
 		#endif
 		#if UNITY_EDITOR||UNITY_STANDALONE
 		filePath = Application.dataPath + "/Resources/levels.xml";
@@ -70,7 +70,7 @@ public class LevelSystem : MonoBehaviour {
 
 		string filePath;
 		#if UNITY_ANDROID
-		filePath = Application.persistentDataPath + "/Resources/levels.xml";
+		filePath = "jar:file://" + Application.dataPath + "!/assets/levels.xml";;
 		#endif
 		#if UNITY_EDITOR||UNITY_STANDALONE
 		filePath = Application.dataPath + "/Resources/levels.xml";
