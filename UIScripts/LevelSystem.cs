@@ -19,12 +19,14 @@ public class LevelSystem : MonoBehaviour {
 
 
 		string filePath;
+
 		#if UNITY_ANDROID
 		filePath = Application.persistentDataPath + "/Resources/levels.xml";
 		#endif
 		#if UNITY_EDITOR||UNITY_STANDALONE
 		filePath = Application.dataPath + "/Resources/levels.xml";
 		#endif
+
 		Debug.Log ("当前选择的关卡是:"+filePath);
 
 
