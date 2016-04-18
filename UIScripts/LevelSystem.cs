@@ -18,9 +18,14 @@ public class LevelSystem : MonoBehaviour {
 		//为了跨平台及可读可写，需要使用Application.persistentDataPath
 
 
-		string filePath = Application.persistentDataPath + "/MyPrefabs/Resources/levels.xml";
+		string filePath;
+#if UNITY_ANDROID
+		filePath = Application.persistentDataPath + "/Resources/levels.xml";
+#endif
+#if UNITY_EDITOR||UNITY_STANDALONE
+		filePath = Application.dataPath + "/Resources/levels.xml";
+#endif
 		Debug.Log ("当前选择的关卡是:"+filePath);
-
 
 
 		xmlDoc.Load(filePath);
@@ -59,7 +64,17 @@ public class LevelSystem : MonoBehaviour {
 		Debug.Log("set level");
 		//创建Xml对象
 		XmlDocument xmlDoc = new XmlDocument();
-		string filePath=Application.persistentDataPath + "/MyPrefabs/Resources/levels.xml";
+
+
+		string filePath;
+		#if UNITY_ANDROID
+		filePath = Application.persistentDataPath + "/Resources/levels.xml";
+		#endif
+		#if UNITY_EDITOR||UNITY_STANDALONE
+		filePath = Application.dataPath + "/Resources/levels.xml";
+		#endif
+
+		//string filePath=Application.persistentDataPath + "/MyPrefabs/Resources/levels.xml";
 		xmlDoc.Load(filePath);
 		XmlElement root = xmlDoc.DocumentElement;
 		XmlNodeList levelsNode = root.SelectNodes("/levels/level");
