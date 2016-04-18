@@ -36,8 +36,6 @@ public class PcPosColorcounter : PcPartileFilter
                            + System.Math.Abs(_Color.b * 255 / _max - p._Color.b * 255 / max);
             if (diffence < colorTolerance)
                 ParticleNumber++;
-            else
-                Debug.Log(diffence);
         }
         return ParticleNumber != 0;
     }
