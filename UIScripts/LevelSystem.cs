@@ -18,6 +18,7 @@ public class LevelSystem : MonoBehaviour {
 		//为了跨平台及可读可写，需要使用Application.persistentDataPath
 
 
+
 		string filePath;
 
 		#if UNITY_ANDROID
@@ -27,7 +28,9 @@ public class LevelSystem : MonoBehaviour {
 		filePath = Application.dataPath + "/Resources/levels.xml";
 		#endif
 
+
 		Debug.Log ("当前选择的关卡是:"+filePath);
+
 
 
 		xmlDoc.Load(filePath);
@@ -68,6 +71,7 @@ public class LevelSystem : MonoBehaviour {
 		XmlDocument xmlDoc = new XmlDocument();
 
 
+
 		string filePath;
 		#if UNITY_ANDROID
 		filePath = "jar:file://" + Application.dataPath + "!/assets/levels.xml";;
@@ -77,6 +81,7 @@ public class LevelSystem : MonoBehaviour {
 		#endif
 
 		//string filePath=Application.persistentDataPath + "/MyPrefabs/Resources/levels.xml";
+
 		xmlDoc.Load(filePath);
 		XmlElement root = xmlDoc.DocumentElement;
 		XmlNodeList levelsNode = root.SelectNodes("/levels/level");
