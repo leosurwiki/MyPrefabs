@@ -25,13 +25,20 @@ public class MarGUI : MonoBehaviour
             {
                 int nextscene = Application.loadedLevel - 1;
                 if (nextscene == 0) nextscene--;
-                if (nextscene < 0) nextscene = Application.levelCount - 1;
+                if (nextscene < 0) nextscene = Application.levelCount - 3;
                 Application.LoadLevel(nextscene);
             }
             else if (GUI.Button(new Rect(Screen.width - Screen.height*3 / 16f, 0, Screen.height * 3 / 16f, Screen.height / 8f), "Return"))
             {
-                int nextscene = 0;
-                Application.LoadLevel(nextscene);
+                if (Application.loadedLevel != Application.levelCount - 1)
+                {
+                    int nextscene = 0;
+                    Application.LoadLevel(Application.levelCount - 1);
+                }
+                else
+                {
+                    Application.LoadLevel(0);
+                }
             }
             else if (GUI.Button(new Rect(Screen.width/2 - Screen.height / 16f, 0, Screen.height*3 / 16f, Screen.height / 8f), "Retry"))
             {
@@ -41,12 +48,16 @@ public class MarGUI : MonoBehaviour
         }
         else
         {
-            if (GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8, Screen.height / 2, Screen.height / 4f, Screen.height / 8f), "Start"))
+            if (GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8, Screen.height*2 / 5, Screen.height / 4f, Screen.height / 8f), "Start"))
             {
                 int nextscene = 1;
-                Application.LoadLevel(nextscene);
+                Application.LoadLevel(Application.levelCount-1);
             }
-            else if (GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8, Screen.height*3 / 4, Screen.height / 4f, Screen.height / 8f), "Quit"))
+            else if (GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8, Screen.height * 3 / 5, Screen.height / 4f, Screen.height / 8f), "tutorial"))
+            {
+                Application.LoadLevel(Application.levelCount - 2);
+            }   
+            else if (GUI.Button(new Rect(Screen.width / 2 - Screen.height / 8, Screen.height*4 / 5, Screen.height / 4f, Screen.height / 8f), "Quit"))
             {
                 Application.Quit();
             }     
