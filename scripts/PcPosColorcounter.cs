@@ -31,11 +31,31 @@ public class PcPosColorcounter : PcPartileFilter
         {
             float _max = System.Math.Max(System.Math.Max(_Color.r, _Color.g), _Color.b);
             float max = System.Math.Max(System.Math.Max(p._Color.r, p._Color.g), p._Color.b);
-            float diffence = System.Math.Abs(_Color.r * 255 / _max - p._Color.r * 255 / max)
-                           + System.Math.Abs(_Color.g * 255 / _max - p._Color.g * 255 / max)
-                           + System.Math.Abs(_Color.b * 255 / _max - p._Color.b * 255 / max);
+            float _min = System.Math.Min(System.Math.Min(_Color.r, _Color.g), _Color.b);
+            float min = System.Math.Min(System.Math.Min(p._Color.r, p._Color.g), p._Color.b);
+            float thetaA, thetaB;
+            if (_max - _min < 0.0001||max - min < 0.0001)
+            {
+                if (particleThreshold==0)
+                    ParticleNumber++;
+                 return ParticleNumber != 0;
+            }
+            
+            if (_Color.g < _Color.b)
+                thetaA = 360.0f - (_max - _Color.r + _Color.g - _min + _Color.b - _min) / (_max - _min) * 60.0f;
+            else
+                thetaA = (_max - _Color.r + _Color.g - _min + _Color.b - _min) / (_max - _min) * 60.0f;
+            if (_Color.g < _Color.b)
+                thetaB = 360.0f - (max - p._Color.r + p._Color.g - min + p._Color.b - min) / (max - min) * 60.0f;
+            else
+                thetaB = (max - p._Color.r + p._Color.g - min + p._Color.b - min) / (max - min) * 60.0f;
+            float diffence = Mathf.Abs(thetaA-thetaB);
+            if (diffence > 180)
+                diffence = 360 - diffence;
             if (diffence < colorTolerance)
                 ParticleNumber++;
+            else
+                Debug.Log(diffence);
         }
         return ParticleNumber != 0;
     }
