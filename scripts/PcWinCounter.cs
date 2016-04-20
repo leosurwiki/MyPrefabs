@@ -27,15 +27,20 @@ public class PcWinCounter : PcPartileFilter{
     {
 		if (ParticleNumber > threshold)
         {
-			int nextscene = 0;
-			if (nextscene > Application.levelCount - 1) {
+
+
+
+			int nextscene = Application.loadedLevel + 1;
+			Debug.Log ("nextScene "+nextscene );
+			if (nextscene >= Application.levelCount - 2) {//TODO
 				nextscene = 0;
 				Application.LoadLevel(nextscene);
 			} else {
-				nextscene = Application.loadedLevel + 1;
+			//	nextscene = Application.loadedLevel + 1;
 				string name = "level" + nextscene;
 				Debug.Log (name);
 				LevelSystem.SetLevels (name,true);
+				Debug.Log ("update level "+nextscene);
 				Application.LoadLevel(nextscene);
 			}
 		

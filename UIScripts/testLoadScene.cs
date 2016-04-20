@@ -12,6 +12,9 @@ public class testLoadScene : MonoBehaviour {
 
 	public void onClick ()
 	{
+//		Debug.Log ("test!");
+//		Application.LoadLevel (id);
+
 		if (level.UnLock) {
 			Debug.Log("choose "+id);
 			Application.LoadLevel (id);
