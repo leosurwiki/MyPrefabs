@@ -10,20 +10,17 @@ public class LevelSystem : MonoBehaviour {
 	public static List<Level> LoadLevels()//read xml
 	{
 		//创建Xml对象
-		XmlDocument xmlDoc = new XmlDocument();
-	
+		XmlDocument xmlDoc = new XmlDocument();	
 		Debug.Log("test 15");
 
 
 		string filePath;
+
 #if UNITY_ANDROID
 		Debug.Log("Android");
 //		filePath = Resources.Load("levels").ToString();//TODO 可用
 //		xmlDoc.LoadXml(filePath); 
 //
-//		//filePath = Application.persistentDataPath + "/levels.xml";
-//		Debug.Log ("当前选择的关卡是:"+filePath);
-
 		filePath=Application.persistentDataPath + "/levels.xml" ;
 		FileInfo file=new FileInfo(filePath);
 	
@@ -34,13 +31,11 @@ public class LevelSystem : MonoBehaviour {
 			CreateFile(filePath);
 			xmlDoc.Load(Application.persistentDataPath + "/levels.xml" ); 
 		}
-
-
 #endif
 #if UNITY_EDITOR||UNITY_STANDALONE
 		Debug.Log("PC");
 		filePath = Application.dataPath + "/Resources/levels.xml";
-		//filePath = Application.dataPath + "/StreamingAssets/levels.xml";	
+			
 		xmlDoc.Load(filePath);
 		Debug.Log ("当前选择的关卡是:"+filePath);
 #endif
@@ -49,12 +44,12 @@ public class LevelSystem : MonoBehaviour {
 		XmlElement root = xmlDoc.DocumentElement;
 		Debug.Log ("test "+37);
 		XmlNodeList levelsNode = root.SelectNodes("/levels/level");
-		Debug.Log ("test "+39);
 
 		//初始化关卡列表
 		List<Level> levels = new List<Level>();
 		foreach (XmlElement xe in levelsNode) 
 		{
+			Debug.Log ("test 45");
 			Level l=new Level();
 			l.ID=xe.GetAttribute("id");
 			l.Name=xe.GetAttribute("name");
