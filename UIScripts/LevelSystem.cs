@@ -37,10 +37,12 @@ public class LevelSystem : MonoBehaviour {
 
 		XmlElement root = xmlDoc.DocumentElement;
 		XmlNodeList levelsNode = root.SelectNodes("/levels/level");
+		Debug.Log ("read levels");
 		//初始化关卡列表
 		List<Level> levels = new List<Level>();
 		foreach (XmlElement xe in levelsNode) 
 		{
+			Debug.Log ("test 45");
 			Level l=new Level();
 			l.ID=xe.GetAttribute("id");
 			l.Name=xe.GetAttribute("name");
@@ -54,7 +56,7 @@ public class LevelSystem : MonoBehaviour {
 			levels.Add(l);
 		}
 
-		Debug.Log (levels.Count);
+		Debug.Log ("levelCount"+levels.Count);
 		return levels;
 	}
 

@@ -14,7 +14,7 @@ public class Main : MonoBehaviour
 		Debug.Log ("14");
 		//获取关卡
 		m_levels = LevelSystem.LoadLevels ();
-		Debug.Log ("16");
+		Debug.Log ("test 16");
 		//动态生成关卡
 		foreach (Level l in m_levels) 
 		{
@@ -57,6 +57,7 @@ public class Main : MonoBehaviour
 	/// </summary>
 	void DataBind(GameObject go,Level level)
 	{
+		Debug.Log ("test DataBind"+level.Name);
 		//为关卡绑定关卡名称
 		//go.transform.Find("LevelName").GetComponent<Text>().text=level.Name;
 		//为关卡绑定关卡图片
