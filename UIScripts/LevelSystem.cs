@@ -2,36 +2,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using System.IO;
 
 public class LevelSystem : MonoBehaviour {
 
-	/// <summary>
-	/// 加载Xml文件 
-	/// </summary>
-	/// <returns>The levels.</returns>
-	public static List<Level> LoadLevels()
+
+	public static List<Level> LoadLevels()//read xml
 	{
 		//创建Xml对象
-		XmlDocument xmlDoc = new XmlDocument();
-		//如果本地存在配置文件则读取配置文件
-		//否则在本地创建配置文件的副本
-		//为了跨平台及可读可写，需要使用Application.persistentDataPath
+		XmlDocument xmlDoc = new XmlDocument();	
+		Debug.Log("test 15");
 
 
+		string filePath;
 
-		string filePath = Application.dataPath + "/MyPrefabs/Resources/levels.xml";
-		Debug.Log ("当前选择的关卡是:"+filePath);
-
-
-
+#if UNITY_ANDROID
+		Debug.Log("Android");
+//		filePath = Resources.Load("levels").ToString();//TODO 可用
+//		xmlDoc.LoadXml(filePath); 
+//
+		filePath=Application.persistentDataPath + "/levels.xml" ;
+		FileInfo file=new FileInfo(filePath);
+	
+		if(file.Exists)
+		{
+			xmlDoc.Load(Application.persistentDataPath + "/levels.xml" ); 
+		}else{
+			CreateFile(filePath);
+			xmlDoc.Load(Application.persistentDataPath + "/levels.xml" ); 
+		}
+#endif
+#if UNITY_EDITOR||UNITY_STANDALONE
+		Debug.Log("PC");
+		filePath = Application.dataPath + "/Resources/levels.xml";
+			
 		xmlDoc.Load(filePath);
+		Debug.Log ("当前选择的关卡是:"+filePath);
+#endif
 
+	
 		XmlElement root = xmlDoc.DocumentElement;
+		Debug.Log ("test "+37);
 		XmlNodeList levelsNode = root.SelectNodes("/levels/level");
+
 		//初始化关卡列表
 		List<Level> levels = new List<Level>();
 		foreach (XmlElement xe in levelsNode) 
 		{
+			Debug.Log ("test 45");
 			Level l=new Level();
 			l.ID=xe.GetAttribute("id");
 			l.Name=xe.GetAttribute("name");
@@ -41,29 +59,46 @@ public class LevelSystem : MonoBehaviour {
 			}else{
 				l.UnLock=false;
 			}
-
+			Debug.Log (l.ID+" "+l.Name);
 			levels.Add(l);
 		}
 
-		Debug.Log (levels.Count);
+		Debug.Log ("levelCount"+levels.Count);
 		return levels;
 	}
 
-	/// <summary>
-	/// 设置某一关卡的状态
-	/// </summary>
-	/// <param name="name">关卡名称</param>
-	/// <param name="locked">是否解锁</param>
-	public  static void SetLevels(string name,bool unlock)
+
+	public  static void SetLevels(string name,bool unlock)//update xml-state of level
 	{
 
-		Debug.Log("set level");
+		Debug.Log("set level "+name +" "+unlock);
 		//创建Xml对象
 		XmlDocument xmlDoc = new XmlDocument();
-		string filePath=Application.dataPath + "/MyPrefabs/Resources/levels.xml";
+
+		string filePath;
+#if UNITY_ANDROID
+		//filePath ="jar:file://" + Application.dataPath + "!/assets/levels.xml";
+//		Debug.Log("Android");
+//
+//		filePath = Application.persistentDataPath + "/levels.xml";
+	
+
+//		filePath = Resources.Load("levels").ToString();//TODO 可用
+//		xmlDoc.Load(filePath); 
+
+		xmlDoc.Load(Application.persistentDataPath + "/levels.xml" ); 
+
+#endif
+#if UNITY_EDITOR||UNITY_STANDALONE
+		filePath = Application.dataPath + "/Resources/levels.xml";
 		xmlDoc.Load(filePath);
+		Debug.Log (filePath);
+	
+#endif
+
 		XmlElement root = xmlDoc.DocumentElement;
 		XmlNodeList levelsNode = root.SelectNodes("/levels/level");
+
 		foreach (XmlElement xe in levelsNode) 
 		{
 			//根据名称找到对应的关卡
@@ -80,7 +115,40 @@ public class LevelSystem : MonoBehaviour {
 			}
 		}
 
-		//保存文件
-		xmlDoc.Save (filePath);
+
+		xmlDoc.Save (Application.persistentDataPath + "/levels.xml");
+
+		Debug.Log("update level "+name +" "+unlock);
+	}
+
+
+
+	public static void CreateFile(string filePath)
+	{
+		//文件流
+		StreamWriter writer;
+		//判断文件目录是否存在
+		//不存在则先创建目录
+		Debug.Log (filePath);
+
+		//如果文件不存在则创建，存在则追加内容
+		FileInfo file=new FileInfo(filePath);
+		if(!file.Exists){
+			writer=file.CreateText();
+		}else{
+			file.Delete();
+			writer=file.CreateText();
+		}
+
+		//写入内容
+		writer.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+			"<levels>" +
+			"<level id=\"1\" name=\"level1\" unlock=\"1\" />" +
+			"<level id=\"2\" name=\"level2\" unlock=\"0\" />" +
+			"<level id=\"3\" name=\"level3\" unlock=\"0\" />" +
+			"<level id=\"4\" name=\"level4\" unlock=\"0\" />" +
+			"</levels>");
+		writer.Close();
+		writer.Dispose();
 	}
 }
