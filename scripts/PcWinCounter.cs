@@ -28,23 +28,20 @@ public class PcWinCounter : PcPartileFilter
     {
         if (ParticleNumber > threshold)
         {
-            int nextscene = Application.loadedLevel + 1;
-            Debug.Log("nextScene " + nextscene);
-            if (nextscene >= Application.levelCount - 2)
+			int nextscene = Application.loadedLevel + 1;
+			Debug.Log ("nextScene "+nextscene );
+			if (nextscene >= Application.levelCount - 2) 
             {//TODO
-                nextscene = 0;
-                Application.LoadLevel(nextscene);
-            }
-            else
-            {
-                //	nextscene = Application.loadedLevel + 1;
-                string name = "level" + nextscene;
-                Debug.Log(name);
-                LevelSystem.SetLevels(name, true);
-                Debug.Log("update level " + nextscene);
-                Application.LoadLevel(nextscene);
-            }
-
+				nextscene = 0;
+				Application.LoadLevel(nextscene);
+			} else {
+			//	nextscene = Application.loadedLevel + 1;
+				string name = "level" + nextscene;
+				Debug.Log (name);
+				LevelSystem.SetLevels (name,true);
+				Debug.Log ("update level "+nextscene);
+				Application.LoadLevel(nextscene);
+			}
         }
     }
     //override

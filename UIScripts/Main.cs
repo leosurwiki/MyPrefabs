@@ -26,28 +26,16 @@ public class Main : MonoBehaviour
 			prefab =  (Resources.Load ("Level") as GameObject);
 
 
-
 			string name = l.Name;
 			Debug.Log(name+" 29");
 			GameObject temp = GameObject.Find(name);
 			temp.GetComponent<testLoadScene> ().level = l;//更新开锁
 			DataBind(temp,l);
 
-			//数据绑定
-//			DataBind(prefab,l);
-//			//设置父物体
-//			prefab.transform.SetParent(GameObject.Find("UIRoot/Background/LevelPanel").transform);
-//			prefab.transform.localPosition=new Vector3(0,0,0);
-//			prefab.transform.localScale=new Vector3(1,1,1);
-//			//将关卡信息传给关卡
-			//prefab.GetComponent<testLoadScene>().level=l;
-//			prefab.name="Level";
+
 		}
 
-		//人为解锁第二个关卡
-		//在实际游戏中玩家需要满足一定条件方可解锁关卡
-		//此处仅作为演示
-		//LevelSystem.SetLevels ("level1", true);
+		Debug.Log ("finish ini");
 
 	}
 
@@ -67,7 +55,6 @@ public class Main : MonoBehaviour
 			
 			Debug.Log (level.Name);
 			tex2D=Resources.Load(level.Name) as Texture2D;
-		//	tex2D=Resources.Load(level.Name) as Texture2D;
 		}else{
 			
 			tex2D=Resources.Load("lock") as Texture2D;
