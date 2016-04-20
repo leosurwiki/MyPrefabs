@@ -13,7 +13,6 @@ public class LevelSystem : MonoBehaviour {
 		XmlDocument xmlDoc = new XmlDocument();	
 		Debug.Log("test 15");
 
-
 		string filePath;
 
 #if UNITY_ANDROID
@@ -35,7 +34,7 @@ public class LevelSystem : MonoBehaviour {
 #if UNITY_EDITOR||UNITY_STANDALONE
 		Debug.Log("PC");
 		filePath = Application.dataPath + "/Resources/levels.xml";
-			
+		//filePath=Application.persistentDataPath + "/levels.xml" ;	
 		xmlDoc.Load(filePath);
 		Debug.Log ("当前选择的关卡是:"+filePath);
 #endif
@@ -91,6 +90,7 @@ public class LevelSystem : MonoBehaviour {
 #endif
 #if UNITY_EDITOR||UNITY_STANDALONE
 		filePath = Application.dataPath + "/Resources/levels.xml";
+		//filePath=Application.persistentDataPath + "/levels.xml" ;
 		xmlDoc.Load(filePath);
 		Debug.Log (filePath);
 	
@@ -115,10 +115,15 @@ public class LevelSystem : MonoBehaviour {
 			}
 		}
 
-
+#if UNITY_ANDROID	
 		xmlDoc.Save (Application.persistentDataPath + "/levels.xml");
-
 		Debug.Log("update level "+name +" "+unlock);
+#endif
+#if UNITY_EDITOR||UNITY_STANDALONE
+		xmlDoc.Save (Application.dataPath + "/Resources/levels.xml");
+		Debug.Log("update level "+name +" "+unlock);
+#endif
+
 	}
 
 
