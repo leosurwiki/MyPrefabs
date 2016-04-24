@@ -11,22 +11,19 @@ public class LevelSystem : MonoBehaviour {
 	{
 		//创建Xml对象
 		XmlDocument xmlDoc = new XmlDocument();	
-		Debug.Log("test 15");
 
 		string filePath;
 
 #if UNITY_ANDROID
 		Debug.Log("Android");
-//		filePath = Resources.Load("levels").ToString();//TODO 可用
-//		xmlDoc.LoadXml(filePath); 
-//
+
 		filePath=Application.persistentDataPath + "/levels.xml" ;
 		FileInfo file=new FileInfo(filePath);
 	
 		if(file.Exists)
 		{
 			xmlDoc.Load(Application.persistentDataPath + "/levels.xml" ); 
-		}else{
+		}else{//如果文件不存在重新建一个xml
 			CreateFile(filePath);
 			xmlDoc.Load(Application.persistentDataPath + "/levels.xml" ); 
 		}
@@ -36,12 +33,11 @@ public class LevelSystem : MonoBehaviour {
 		filePath = Application.dataPath + "/Resources/levels.xml";
 		//filePath=Application.persistentDataPath + "/levels.xml" ;	
 		xmlDoc.Load(filePath);
-		Debug.Log ("当前选择的关卡是:"+filePath);
 #endif
 
 	
 		XmlElement root = xmlDoc.DocumentElement;
-		Debug.Log ("test "+37);
+
 		XmlNodeList levelsNode = root.SelectNodes("/levels/level");
 
 		//初始化关卡列表
@@ -52,7 +48,8 @@ public class LevelSystem : MonoBehaviour {
 			Level l=new Level();
 			l.ID=xe.GetAttribute("id");
 			l.Name=xe.GetAttribute("name");
-			//使用unlock属性来标识当前关卡是否解锁
+		
+			//初始化场景中的关卡属性
 			if(xe.GetAttribute("unlock")=="1"){
 				l.UnLock=true;
 			}else{
@@ -76,14 +73,6 @@ public class LevelSystem : MonoBehaviour {
 
 		string filePath;
 #if UNITY_ANDROID
-		//filePath ="jar:file://" + Application.dataPath + "!/assets/levels.xml";
-//		Debug.Log("Android");
-//
-//		filePath = Application.persistentDataPath + "/levels.xml";
-	
-
-//		filePath = Resources.Load("levels").ToString();//TODO 可用
-//		xmlDoc.Load(filePath); 
 
 		xmlDoc.Load(Application.persistentDataPath + "/levels.xml" ); 
 
@@ -105,7 +94,7 @@ public class LevelSystem : MonoBehaviour {
 			if(xe.GetAttribute("name")==name)
 			{				
 				//Main.updateState(name);
-				//根据unlock重新为关卡赋值
+				//unlock level!
 				if(unlock){
 					Debug.Log("unlock");
 					xe.SetAttribute("unlock","1");//修改xml文件
@@ -152,6 +141,17 @@ public class LevelSystem : MonoBehaviour {
 			"<level id=\"2\" name=\"level2\" unlock=\"0\" />" +
 			"<level id=\"3\" name=\"level3\" unlock=\"0\" />" +
 			"<level id=\"4\" name=\"level4\" unlock=\"0\" />" +
+			"<level id=\"5\" name=\"level5\" unlock=\"0\" />" +
+			"<level id=\"6\" name=\"level6\" unlock=\"0\" />" +
+			"<level id=\"7\" name=\"level7\" unlock=\"0\" />" +
+			"<level id=\"8\" name=\"level8\" unlock=\"0\" />" +
+			"<level id=\"9\" name=\"level9\" unlock=\"0\" />" +
+			"<level id=\"10\" name=\"level10\" unlock=\"0\" />" +
+			"<level id=\"11\" name=\"level11\" unlock=\"0\" />" +
+			"<level id=\"12\" name=\"level12\" unlock=\"0\" />" +
+			"<level id=\"13\" name=\"level13\" unlock=\"0\" />" +
+			"<level id=\"14\" name=\"level14\" unlock=\"0\" />" +
+			"<level id=\"15\" name=\"level15\" unlock=\"0\" />" +
 			"</levels>");
 		writer.Close();
 		writer.Dispose();
