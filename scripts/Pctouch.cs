@@ -6,7 +6,7 @@ public class Pctouch : MonoBehaviour
 
     Pcdrag activebutton;
     bool buttonactive;
-    public MoveLadle ladle;
+    //public MoveLadle ladle;
 
     // Use this for initialization
     void Start()
@@ -38,9 +38,11 @@ public class Pctouch : MonoBehaviour
 
             if (!buttonactive && Input.touches[0].phase != TouchPhase.Ended && Input.touches[0].phase != TouchPhase.Canceled)
             {
+                /*
                 if (ladle!=null)
                     ladle.MoveIt(Camera.main.ScreenToWorldPoint(new Vector3(Input.touches[0].position.x, Input.touches[0].position.y)));
-            }
+                */
+             }
             if (buttonactive)
             {
                 activebutton.dragged(Camera.main.ScreenToWorldPoint(new Vector3(Input.touches[0].position.x, Input.touches[0].position.y)));
@@ -65,8 +67,10 @@ public class Pctouch : MonoBehaviour
         }
         if (!buttonactive && Input.GetMouseButton(0))
         {
+            /*
             if (ladle != null)
                 ladle.MoveIt(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+             */
         }
         if (buttonactive)
         {
