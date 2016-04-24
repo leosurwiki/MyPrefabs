@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
@@ -11,6 +11,10 @@ public class LevelSystem : MonoBehaviour {
 	{
 		//创建Xml对象
 		XmlDocument xmlDoc = new XmlDocument();	
+<<<<<<< Updated upstream
+=======
+		Debug.Log("test 15");
+>>>>>>> Stashed changes
 
 		string filePath;
 
@@ -112,28 +116,18 @@ public class LevelSystem : MonoBehaviour {
 		xmlDoc.Save (Application.dataPath + "/Resources/levels.xml");
 		Debug.Log("update level "+name +" "+unlock);
 #endif
+<<<<<<< Updated upstream
+
+	}
+=======
+>>>>>>> Stashed changes
 
 	}
 
 
 
-	public static void CreateFile(string filePath)
-	{
-		//文件流
-		StreamWriter writer;
-		//判断文件目录是否存在
-		//不存在则先创建目录
-		Debug.Log (filePath);
 
-		//如果文件不存在则创建，存在则追加内容
-		FileInfo file=new FileInfo(filePath);
-		if(!file.Exists){
-			writer=file.CreateText();
-		}else{
-			file.Delete();
-			writer=file.CreateText();
-		}
-
+<<<<<<< Updated upstream
 		//写入内容
 		writer.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
 			"<levels>" +
@@ -157,3 +151,6 @@ public class LevelSystem : MonoBehaviour {
 		writer.Dispose();
 	}
 }
+=======
+}
+>>>>>>> Stashed changes
