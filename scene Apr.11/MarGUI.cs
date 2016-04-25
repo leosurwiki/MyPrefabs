@@ -30,6 +30,7 @@ public class MarGUI : MonoBehaviour
             }
             else if (GUI.Button(new Rect(Screen.width - Screen.height*3 / 16f, 0, Screen.height * 3 / 16f, Screen.height / 8f), "Return"))
             {
+				Time.timeScale = 1;
                 if (Application.loadedLevel != Application.levelCount - 1 && Application.loadedLevel != Application.levelCount - 2)
                 {
                     int nextscene = 0;
